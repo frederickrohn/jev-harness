@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+
+# Locally installed agent tooling
+.agents/
+.codex/
+
+# Local Impeccable state and generated review artifacts
+.impeccable/config.local.json
+.impeccable/build/
+.impeccable/live/
+.impeccable/review/
