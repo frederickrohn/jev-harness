@@ -19,6 +19,16 @@ The harness should keep control flow, deterministic rules, side effects, and too
 - Make the loop and its events visible in a small browser UI.
 - Start with an in-memory runtime, then add tools and sandboxed execution after the loop works.
 
+## Experiment ideas
+
+- **Semantic pathfinding:** Give Jev a query and a large tree of candidate locations. At each level, have it rank or select the branches most likely to contain the answer, then recursively search those branches. This could apply to codebases, document collections, or knowledge graphs.
+- **Vision-guided robotics:** Use a classical vision model to turn camera frames into compact structured state such as detected objects, distances, trajectories, free space, and hazards. Give that state to Jev for higher-level action selection while deterministic control software owns movement and safety. Measure perception time and Jev decision time separately to find the real bottleneck.
+- **Autoregressive Jev experiment:** Give Jev a bounded alphabet such as `a-z`, space, and punctuation, repeatedly choose the next character, and assemble the choices into text. Constrain outputs to short words and measure cumulative latency, input tokens, API calls, coherence, and cost; one-character calls may still make this expensive.
+- **Trading bot signal:** Feed Jev structured market state such as spread, returns, volatility, order-book imbalance, and flow. Use its probabilities as another advisory signal while deterministic strategy and risk controls retain authority over execution.
+- **UI composition:** Give Jev a catalog of allowed components, variants, and properties, then let it choose what the user needs. Ordinary application code validates the choices and assembles the interface instead of asking a generative model to write arbitrary UI code.
+
+Inspiration: [“I reviewed 287 open-source Jev projects. Here are 20 that actually helped me understand what Jev is good at”](https://www.reddit.com/r/LLMDevs/comments/1wko2e5/i_reviewed_287_opensource_jev_projects_here_are/).
+
 ## Initial modes
 
 ### Jev only
