@@ -28,6 +28,7 @@ The harness should keep control flow, deterministic rules, side effects, and too
 - **UI composition:** Give Jev a catalog of allowed components, variants, and properties, then let it choose what the user needs. Ordinary application code validates the choices and assembles the interface instead of asking a generative model to write arbitrary UI code.
 
 Inspiration: [“I reviewed 287 open-source Jev projects. Here are 20 that actually helped me understand what Jev is good at”](https://www.reddit.com/r/LLMDevs/comments/1wko2e5/i_reviewed_287_opensource_jev_projects_here_are/).
+Additional Source I should review because it speaks to a future harness idea. This one is cool because it mimics the way humans work - fast decision making layer and long term skill creating layer ["Jev + Astra defeats ender dragon"](https://x.com/rronak_/status/2101544156757950697)
 
 ## Initial modes
 
