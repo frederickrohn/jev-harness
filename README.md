@@ -31,6 +31,30 @@ FastAPI runs a bounded message-based agent loop. The LLM generates the assistant
 
 The exact LLM endpoint and message protocol remain an implementation decision. The first version should support one provider only.
 
+## First experiment: warehouse robot
+
+The first backend experiment is intentionally small. `POST /decide` accepts one description of the robot's current situation, asks Jev whether the robot should `move`, `slow`, or `stop`, and returns Jev's structured response.
+
+Start the server from the repository root:
+
+```bash
+cd backend
+uv run uvicorn app:app --reload
+```
+
+In a second terminal, send a situation:
+
+```bash
+curl -s http://127.0.0.1:8000/decide \
+  -H 'Content-Type: application/json' \
+  -d '{"situation":"A worker is standing directly in front of the robot."}' \
+  | python3 -m json.tool
+```
+
+FastAPI's interactive version is available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
+This is completed. We might get rid of this experiment as we build out the rest of the Jev Harness.
+
 ## Architecture
 
 - **Frontend:** a basic Next.js app for choosing a mode, entering state/questions or messages, running an experiment, and inspecting timeline events and raw structured results.

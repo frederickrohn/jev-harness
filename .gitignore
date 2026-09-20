@@ -2,6 +2,12 @@
 .env.*
 !.env.example
 
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+backend/uv.lock
+
 # Locally installed agent tooling
 .agents/
 .codex/
