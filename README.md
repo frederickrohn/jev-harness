@@ -50,7 +50,8 @@ Start the server from the repository root:
 
 ```bash
 cd backend
-uv run uvicorn app:app --reload
+python3 -m pip install -r requirements.txt
+python3 -m uvicorn app:app --reload
 ```
 
 In a second terminal, send a situation:
