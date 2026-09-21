@@ -1,4 +1,5 @@
 import os
+from hmac import compare_digest
 from string import ascii_lowercase
 
 from dotenv import load_dotenv
@@ -11,6 +12,7 @@ from schemas import AutoRegressiveChatRequest, AutoRegressiveChatResponse, Robot
 # --------------init----------------------
 load_dotenv()
 api_key = os.getenv("JEV_SECRET_API_KEY")
+proxy_secret = os.getenv("BACKEND_PROXY_SECRET")
 app = FastAPI(title="Jev Lab")
 
 
@@ -27,6 +29,18 @@ async def require_api_key(request: Request, call_next):
         return JSONResponse(
             status_code=500,
             content={"detail": "JEV_SECRET_API_KEY is not set"},
+        )
+    # this is just a standin while we don't have authentication set up
+    if not proxy_secret:
+        return JSONResponse(
+            status_code=500,
+            content={"detail": "BACKEND_PROXY_SECRET is not set"},
+        )
+    request_secret = request.headers.get("x-jev-proxy-secret", "")
+    if not compare_digest(request_secret, proxy_secret):
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "Invalid backend proxy credentials"},
         )
     return await call_next(request)
 

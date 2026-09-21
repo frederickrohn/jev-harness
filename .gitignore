@@ -12,6 +12,9 @@ backend/uv.lock
 .agents/
 .codex/
 
+# mac stuff
+.DS_Store
+
 # Local Impeccable state and generated review artifacts
 .impeccable/config.local.json
 .impeccable/build/

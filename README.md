@@ -58,6 +58,7 @@ In a second terminal, send a situation:
 ```bash
 curl -s http://127.0.0.1:8000/decide \
   -H 'Content-Type: application/json' \
+  -H "X-Jev-Proxy-Secret: $BACKEND_PROXY_SECRET" \
   -d '{"situation":"A worker is standing directly in front of the robot."}' \
   | python3 -m json.tool
 ```
@@ -73,6 +74,7 @@ This is completed. We might get rid of this experiment as we build out the rest 
 ```bash
 curl -s http://127.0.0.1:8000/autoregressive-chat \
   -H 'Content-Type: application/json' \
+  -H "X-Jev-Proxy-Secret: $BACKEND_PROXY_SECRET" \
   -d '{"question":"Which animal says meow?"}' \
   | python3 -m json.tool
 ```
@@ -88,6 +90,24 @@ Secrets remain server-side and come from environment variables:
 
 - `JEV_SECRET_API_KEY`
 - `OPENAI_SECRET_KEY`
+- `BACKEND_PROXY_SECRET` — a random value shared only by the frontend server proxy and FastAPI.
+
+The frontend calls `/api/backend/...` on its own origin. The Next.js server route forwards those requests to `BACKEND_URL` and adds `BACKEND_PROXY_SECRET`; FastAPI rejects requests without the matching header. This keeps the Railway URL from being used directly to spend Jev credits.
+
+For local development, put the same generated value in the root `.env` for FastAPI and `frontend/.env.local` for Next.js. Generate one with:
+
+```bash
+openssl rand -hex 32
+```
+
+If you call FastAPI directly with `curl`, include the header manually:
+
+```bash
+curl -s http://127.0.0.1:8000/decide \
+  -H 'Content-Type: application/json' \
+  -H "X-Jev-Proxy-Secret: $BACKEND_PROXY_SECRET" \
+  -d '{"situation":"A worker is standing directly in front of the robot."}'
+```
 
 ## Agent loop
 
