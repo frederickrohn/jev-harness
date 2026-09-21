@@ -1,4 +1,4 @@
-# Jev Harness
+# Jev Lab
 
 An experimental harness for learning where Jev fits inside agent workflows and comparing Jev-only decisions with an LLM loop assisted by Jev.
 
@@ -64,7 +64,18 @@ curl -s http://127.0.0.1:8000/decide \
 
 FastAPI's interactive version is available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
-This is completed. We might get rid of this experiment as we build out the rest of the Jev Harness.
+This is completed. We might get rid of this experiment as we build out the rest of Jev Lab.
+
+## Autoregressive chat experiment
+
+`POST /autoregressive-chat` asks Jev to build a one-word answer one letter at a time. Each iteration ranks `a-z` plus `stop`. When Choice confidence is below `0.3`, Jev chooses again from the five highest-probability options. The loop ends when Jev chooses `stop` or after 20 iterations. The response includes the word, stopping reason, number of iterations, and total token usage. The experiment history and findings are recorded in [`autoregresion-report.md`](autoregresion-report.md).
+
+```bash
+curl -s http://127.0.0.1:8000/autoregressive-chat \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"Which animal says meow?"}' \
+  | python3 -m json.tool
+```
 
 ## Architecture
 
