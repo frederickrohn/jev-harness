@@ -9,7 +9,7 @@ export default function Home() {
     <div className="home-page">
       <header className="home-intro">
         <p className="system-line">HOME</p>
-        <h1>Push the limits of Jev. Test where it breaks.</h1>
+        <h1>Push Jev until it breaks.</h1>
         <p className="home-summary">
           Jev Lab is a public workspace for testing Jev&apos;s capabilities.
           Choose an experiment from the sidebar, submit your own input, inspect the structured output, and read about the approach.
